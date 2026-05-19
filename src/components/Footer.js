@@ -51,11 +51,11 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative border-t border-zinc-800/60 px-6 py-12 lg:px-16">
+    <footer className="relative border-t border-zinc-800/60 px-4 py-8 sm:px-6 sm:py-12 lg:px-16">
       <div className="mx-auto max-w-7xl">
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
+        <div className="grid grid-cols-1 gap-8 text-center md:grid-cols-3 md:gap-8 md:text-left">
           {/* Brand */}
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col items-center gap-4 md:items-start">
             <Link href="/" className="group inline-flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-800 bg-gradient-to-br from-[#a855f7]/10 to-[#06b6d4]/10 transition-all duration-300 group-hover:border-zinc-700 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]">
                 <span className="gradient-text font-heading text-lg font-bold">R</span>
@@ -82,16 +82,16 @@ export default function Footer() {
           </div>
 
           {/* Social */}
-          <div>
+          <div className="flex flex-col items-center md:items-start">
             <h4 className="mb-4 text-xs font-semibold tracking-widest text-zinc-500 uppercase">{f.connect}</h4>
-            <div className="flex gap-3">
+            <div className="flex justify-center gap-3 md:justify-start">
               {SOCIAL_LINKS.map((social) => (
                 <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label} className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/40 text-zinc-500 transition-all duration-300 hover:border-zinc-700 hover:bg-zinc-900/60 hover:text-[#f4f4f5]">
                   {social.icon}
                 </a>
               ))}
             </div>
-            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/40 px-3 py-1.5 text-xs text-zinc-600">
+            <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/40 px-3 py-1.5 text-xs text-zinc-600 sm:mt-6">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#34d399] opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[#34d399]" />
@@ -102,7 +102,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-zinc-800/40 pt-8 sm:flex-row">
+        <div className="mt-8 flex flex-col items-center justify-between gap-3 border-t border-zinc-800/40 pt-6 sm:mt-12 sm:flex-row sm:gap-4 sm:pt-8">
           <p className="text-xs text-zinc-600">
             © {new Date().getFullYear()} {f.copyright}
           </p>

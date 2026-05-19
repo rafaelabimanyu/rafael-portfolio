@@ -74,7 +74,7 @@ function BentoCard({ children, className = "", delay = 0, golden = false }) {
   const [ref, isInView] = useInView();
 
   const baseStyles =
-    "rounded-3xl border p-6 sm:p-8 transition-all duration-500 backdrop-blur-md";
+    "rounded-2xl sm:rounded-3xl border p-4 sm:p-6 md:p-8 transition-all duration-500 backdrop-blur-md";
 
   const normalStyles =
     "bg-zinc-900/20 border-zinc-800/60 hover:border-zinc-700/80 hover:bg-zinc-900/30";
@@ -115,35 +115,35 @@ export default function AboutBento() {
   const about = t("about");
 
   return (
-    <section id="about" className="relative px-6 py-24 lg:px-16 lg:py-32">
+    <section id="about" className="relative px-4 py-16 sm:px-6 sm:py-24 lg:px-16 lg:py-32">
       <div className="mx-auto max-w-7xl">
         {/* ── Section Header ───────────────────────────────────── */}
         <div
           ref={sectionRef}
-          className="mb-16 text-center"
+          className="mb-10 text-center sm:mb-16"
           style={{
             opacity: sectionInView ? 1 : 0,
             transform: sectionInView ? "translateY(0)" : "translateY(24px)",
             transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)",
           }}
         >
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-1.5 text-xs tracking-widest text-zinc-500 uppercase backdrop-blur-sm">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-1 text-[10px] tracking-widest text-zinc-500 uppercase backdrop-blur-sm sm:mb-4 sm:px-4 sm:py-1.5 sm:text-xs">
             <span className="h-1.5 w-1.5 rounded-full bg-[#a855f7]" />
             {about.label}
           </div>
 
-          <h2 className="font-heading text-4xl font-bold tracking-tight text-[#f4f4f5] sm:text-5xl">
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-[#f4f4f5] sm:text-4xl md:text-5xl">
             {about.title}{" "}
             <span className="gradient-text">{about.titleGradient}</span>
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-zinc-500">
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-zinc-500 sm:mt-4 sm:text-base">
             {about.subtitle}
           </p>
         </div>
 
         {/* ── Bento Grid ──────────────────────────────────────── */}
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
+        <div className="grid grid-cols-1 gap-4 sm:gap-5 md:grid-cols-3 md:gap-6">
 
           {/* KOTAK 1 — About Me */}
           <BentoCard className="md:col-span-2" delay={0.1}>
@@ -156,10 +156,10 @@ export default function AboutBento() {
               </h3>
             </div>
 
-            <p className="mb-4 text-[15px] leading-relaxed text-zinc-400">
+            <p className="mb-3 text-sm leading-relaxed text-zinc-400 sm:mb-4 sm:text-[15px]">
               {about.aboutMeP1}
             </p>
-            <p className="mb-6 text-[15px] leading-relaxed text-zinc-400">
+            <p className="mb-4 text-sm leading-relaxed text-zinc-400 sm:mb-6 sm:text-[15px]">
               {about.aboutMeP2}
             </p>
 

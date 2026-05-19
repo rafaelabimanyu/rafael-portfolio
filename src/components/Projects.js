@@ -119,7 +119,7 @@ function ProjectCard({ project, index, texts }) {
   return (
     <div
       ref={ref}
-      className={`group grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12`}
+      className={`group grid grid-cols-1 items-center gap-6 sm:gap-8 lg:grid-cols-2 lg:gap-12`}
       style={{
         opacity: isInView ? 1 : 0,
         transform: isInView ? "translateY(0)" : "translateY(40px)",
@@ -134,7 +134,7 @@ function ProjectCard({ project, index, texts }) {
           onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 0 40px ${project.accent}20, 0 0 80px ${project.accent}08`; }}
           onMouseLeave={(e) => { e.currentTarget.style.boxShadow = `0 0 0px ${project.accent}00`; }}
         >
-          <div className="flex items-center gap-1.5 border-b border-zinc-800/60 bg-zinc-900/60 px-4 py-3">
+          <div className="flex items-center gap-1.5 border-b border-zinc-800/60 bg-zinc-900/60 px-3 py-2 sm:px-4 sm:py-3">
             <span className="h-2.5 w-2.5 rounded-full bg-red-500/50" />
             <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/50" />
             <span className="h-2.5 w-2.5 rounded-full bg-green-500/50" />
@@ -147,7 +147,7 @@ function ProjectCard({ project, index, texts }) {
           >
             <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `linear-gradient(${project.accent}40 1px, transparent 1px), linear-gradient(90deg, ${project.accent}40 1px, transparent 1px)`, backgroundSize: "40px 40px" }} />
             <div className="relative text-center">
-              <p className="font-heading text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: project.accent }}>{project.title}</p>
+              <p className="font-heading text-2xl font-bold tracking-tight sm:text-3xl md:text-4xl" style={{ color: project.accent }}>{project.title}</p>
               <p className="mt-1 text-xs tracking-widest text-zinc-600 uppercase">{texts.previewSoon}</p>
             </div>
           </div>
@@ -160,11 +160,11 @@ function ProjectCard({ project, index, texts }) {
           {localItem.subtitle || project.title}
         </p>
 
-        <h3 className="mb-4 font-heading text-3xl font-bold tracking-tight text-[#f4f4f5] sm:text-4xl">
+        <h3 className="mb-3 font-heading text-2xl font-bold tracking-tight text-[#f4f4f5] sm:mb-4 sm:text-3xl md:text-4xl">
           {project.title}
         </h3>
 
-        <p className="mb-5 text-[15px] leading-relaxed text-zinc-400">
+        <p className="mb-4 text-sm leading-relaxed text-zinc-400 sm:mb-5 sm:text-[15px]">
           {localItem.description || ""}
         </p>
 
@@ -180,12 +180,12 @@ function ProjectCard({ project, index, texts }) {
           ))}
         </div>
 
-        <div className={`flex items-center gap-3 ${!isEven ? "lg:justify-end" : ""}`}>
+        <div className={`flex flex-col items-stretch gap-3 sm:flex-row sm:items-center ${!isEven ? "lg:justify-end" : ""}`}>
           <a
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn-glow inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold text-white"
+            className="btn-glow inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white sm:py-2.5"
             style={{ background: `linear-gradient(135deg, ${project.accent}, ${project.accent}bb)` }}
           >
             <GitHubIcon className="h-4 w-4" />
@@ -193,7 +193,7 @@ function ProjectCard({ project, index, texts }) {
             <ArrowIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
           </a>
 
-          <a href="#" className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-5 py-2.5 text-sm font-medium text-zinc-400 transition-all duration-300 hover:border-zinc-500 hover:bg-zinc-900/50 hover:text-zinc-200">
+          <a href="#" className="inline-flex items-center justify-center gap-2 rounded-full border border-zinc-700 px-5 py-3 text-sm font-medium text-zinc-400 transition-all duration-300 hover:border-zinc-500 hover:bg-zinc-900/50 hover:text-zinc-200 sm:py-2.5">
             <ExternalIcon className="h-4 w-4" />
             {texts.liveDemo}
           </a>
@@ -212,12 +212,12 @@ export default function Projects() {
   const texts = t("projects");
 
   return (
-    <section id="projects" className="relative px-6 py-24 lg:px-16 lg:py-32">
+    <section id="projects" className="relative px-4 py-16 sm:px-6 sm:py-24 lg:px-16 lg:py-32">
       <div className="mx-auto max-w-7xl">
         {/* ── Section Header ─────────────────────────────────── */}
         <div
           ref={headerRef}
-          className="mb-20 text-center"
+          className="mb-12 text-center sm:mb-20"
           style={{
             opacity: headerInView ? 1 : 0,
             transform: headerInView ? "translateY(0)" : "translateY(24px)",
@@ -229,28 +229,28 @@ export default function Projects() {
             {texts.label}
           </div>
 
-          <h2 className="font-heading text-4xl font-bold tracking-tight text-[#f4f4f5] sm:text-5xl">
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-[#f4f4f5] sm:text-4xl md:text-5xl">
             {texts.title}{" "}
             <span className="gradient-text">{texts.titleGradient}</span>
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-zinc-500">
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-zinc-500 sm:mt-4 sm:text-base">
             {texts.subtitle}
           </p>
         </div>
 
         {/* ── Featured Projects (2 only) ─────────────────────── */}
-        <div className="space-y-24 lg:space-y-32">
+        <div className="space-y-12 sm:space-y-24 lg:space-y-32">
           {PROJECTS_DATA.map((project, index) => (
             <ProjectCard key={project.id} project={project} index={index} texts={texts} />
           ))}
         </div>
 
         {/* ── View All CTA ────────────────────────────────────── */}
-        <div className="mt-20 flex justify-center">
+        <div className="mt-12 flex justify-center sm:mt-20">
           <Link
             href="/projects"
-            className="btn-glow group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#a855f7] to-[#06b6d4] px-8 py-3.5 text-sm font-semibold text-white shadow-lg"
+            className="btn-glow group inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#a855f7] to-[#06b6d4] px-8 py-3.5 text-sm font-semibold text-white shadow-lg sm:w-auto"
           >
             {texts.viewAll}
             <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />

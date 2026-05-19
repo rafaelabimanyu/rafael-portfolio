@@ -119,41 +119,41 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className="relative px-6 py-24 lg:px-16 lg:py-32">
+    <section id="contact" className="relative px-4 py-16 sm:px-6 sm:py-24 lg:px-16 lg:py-32">
       <div className="mx-auto max-w-7xl">
         {/* ── Section Header ─────────────────────────────────── */}
         <div
           ref={headerRef}
-          className="mb-16 text-center"
+          className="mb-10 text-center sm:mb-16"
           style={{
             opacity: headerInView ? 1 : 0,
             transform: headerInView ? "translateY(0)" : "translateY(24px)",
             transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)",
           }}
         >
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-1.5 text-xs tracking-widest text-zinc-500 uppercase backdrop-blur-sm">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-1 text-[10px] tracking-widest text-zinc-500 uppercase backdrop-blur-sm sm:mb-4 sm:px-4 sm:py-1.5 sm:text-xs">
             <span className="h-1.5 w-1.5 rounded-full bg-[#34d399]" />
             {c.label}
           </div>
 
-          <h2 className="font-heading text-4xl font-bold tracking-tight text-[#f4f4f5] sm:text-5xl">
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-[#f4f4f5] sm:text-4xl md:text-5xl">
             {c.title}{" "}
             <span className="gradient-text">{c.titleGradient}</span>
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-zinc-500">
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-zinc-500 sm:mt-4 sm:text-base">
             {c.subtitle}
           </p>
         </div>
 
         {/* ── Two Column Grid ────────────────────────────────── */}
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="grid grid-cols-1 gap-6 sm:gap-10 lg:grid-cols-2 lg:gap-16">
           {/* LEFT — Info */}
-          <div ref={leftRef} className="flex flex-col gap-6" style={{ opacity: leftInView ? 1 : 0, transform: leftInView ? "translateY(0)" : "translateY(32px)", transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s" }}>
-            <div className="rounded-3xl border border-zinc-800/60 bg-zinc-900/20 p-8 backdrop-blur-md">
+          <div ref={leftRef} className="flex flex-col gap-4 sm:gap-6" style={{ opacity: leftInView ? 1 : 0, transform: leftInView ? "translateY(0)" : "translateY(32px)", transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s" }}>
+            <div className="rounded-2xl border border-zinc-800/60 bg-zinc-900/20 p-5 backdrop-blur-md sm:rounded-3xl sm:p-8">
               <SparkleIcon className="mb-4 h-8 w-8 text-[#a855f7]" />
-              <h3 className="mb-3 font-heading text-2xl font-bold text-[#f4f4f5]">{c.ctaTitle}</h3>
-              <p className="text-[15px] leading-relaxed text-zinc-400">{c.ctaDesc}</p>
+              <h3 className="mb-2 font-heading text-xl font-bold text-[#f4f4f5] sm:mb-3 sm:text-2xl">{c.ctaTitle}</h3>
+              <p className="text-sm leading-relaxed text-zinc-400 sm:text-[15px]">{c.ctaDesc}</p>
             </div>
 
             <ContactLink href="mailto:rafael.abimanyu@email.com" icon={<MailIcon className="h-5 w-5 text-[#06b6d4]" />} label="Email" value="rafael.abimanyu@email.com" />
@@ -163,21 +163,21 @@ export default function Contact() {
 
           {/* RIGHT — Form */}
           <div ref={formRef} style={{ opacity: formInView ? 1 : 0, transform: formInView ? "translateY(0)" : "translateY(32px)", transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s" }}>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-5 rounded-3xl border border-zinc-800/60 bg-zinc-900/20 p-8 backdrop-blur-md">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 rounded-2xl border border-zinc-800/60 bg-zinc-900/20 p-5 backdrop-blur-md sm:gap-5 sm:rounded-3xl sm:p-8">
               <div>
                 <label htmlFor="contact-name" className="mb-2 block text-xs font-medium tracking-wider text-zinc-500 uppercase">{c.nameLabel}</label>
-                <input id="contact-name" name="name" type="text" required value={formState.name} onChange={handleChange} placeholder={c.namePlaceholder} className="w-full rounded-2xl border border-zinc-800/80 bg-zinc-950/50 px-5 py-3.5 text-sm text-[#f4f4f5] placeholder-zinc-700 outline-none transition-all duration-300 focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7]/20" />
+                <input id="contact-name" name="name" type="text" required value={formState.name} onChange={handleChange} placeholder={c.namePlaceholder} className="min-h-[44px] w-full rounded-xl border border-zinc-800/80 bg-zinc-950/50 px-4 py-3 text-sm text-[#f4f4f5] placeholder-zinc-700 outline-none transition-all duration-300 focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7]/20 sm:rounded-2xl sm:px-5 sm:py-3.5" />
               </div>
               <div>
                 <label htmlFor="contact-email" className="mb-2 block text-xs font-medium tracking-wider text-zinc-500 uppercase">{c.emailLabel}</label>
-                <input id="contact-email" name="email" type="email" required value={formState.email} onChange={handleChange} placeholder={c.emailPlaceholder} className="w-full rounded-2xl border border-zinc-800/80 bg-zinc-950/50 px-5 py-3.5 text-sm text-[#f4f4f5] placeholder-zinc-700 outline-none transition-all duration-300 focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7]/20" />
+                <input id="contact-email" name="email" type="email" required value={formState.email} onChange={handleChange} placeholder={c.emailPlaceholder} className="min-h-[44px] w-full rounded-xl border border-zinc-800/80 bg-zinc-950/50 px-4 py-3 text-sm text-[#f4f4f5] placeholder-zinc-700 outline-none transition-all duration-300 focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7]/20 sm:rounded-2xl sm:px-5 sm:py-3.5" />
               </div>
               <div>
                 <label htmlFor="contact-message" className="mb-2 block text-xs font-medium tracking-wider text-zinc-500 uppercase">{c.messageLabel}</label>
-                <textarea id="contact-message" name="message" required rows={5} value={formState.message} onChange={handleChange} placeholder={c.messagePlaceholder} className="w-full resize-none rounded-2xl border border-zinc-800/80 bg-zinc-950/50 px-5 py-3.5 text-sm leading-relaxed text-[#f4f4f5] placeholder-zinc-700 outline-none transition-all duration-300 focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7]/20" />
+                <textarea id="contact-message" name="message" required rows={4} value={formState.message} onChange={handleChange} placeholder={c.messagePlaceholder} className="w-full resize-none rounded-xl border border-zinc-800/80 bg-zinc-950/50 px-4 py-3 text-sm leading-relaxed text-[#f4f4f5] placeholder-zinc-700 outline-none transition-all duration-300 focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7]/20 sm:rounded-2xl sm:px-5 sm:py-3.5" />
               </div>
 
-              <button type="submit" disabled={isSending} className="btn-glow group mt-2 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#a855f7] to-[#06b6d4] px-8 py-4 text-sm font-semibold text-white shadow-lg disabled:opacity-60 disabled:cursor-not-allowed">
+              <button type="submit" disabled={isSending} className="btn-glow group mt-1 inline-flex min-h-[48px] w-full items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#a855f7] to-[#06b6d4] px-6 py-3.5 text-sm font-semibold text-white shadow-lg disabled:opacity-60 disabled:cursor-not-allowed sm:mt-2 sm:px-8 sm:py-4">
                 {isSending ? (
                   <><svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>{c.sendingBtn}</>
                 ) : sent ? (
