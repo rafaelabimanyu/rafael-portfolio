@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 /* ── Intersection Observer Hook ────────────────────────────────── */
 function useInView(options = {}) {
@@ -83,9 +84,7 @@ function ContactLink({ href, icon, label, value, external = false }) {
       </div>
       <div className="min-w-0">
         <p className="text-xs tracking-wider text-zinc-500 uppercase">{label}</p>
-        <p className="truncate text-sm font-medium text-zinc-300 transition-colors duration-300 group-hover:text-[#f4f4f5]">
-          {value}
-        </p>
+        <p className="truncate text-sm font-medium text-zinc-300 transition-colors duration-300 group-hover:text-[#f4f4f5]">{value}</p>
       </div>
     </a>
   );
@@ -99,23 +98,18 @@ export default function Contact() {
   const [leftRef, leftInView] = useInView();
   const [formRef, formInView] = useInView();
 
-  const [formState, setFormState] = useState({
-    name: "",
-    email: "",
-    message: "",
-  });
+  const { t } = useLanguage();
+  const c = t("contact");
+
+  const [formState, setFormState] = useState({ name: "", email: "", message: "" });
   const [isSending, setIsSending] = useState(false);
   const [sent, setSent] = useState(false);
 
-  const handleChange = (e) => {
-    setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const handleChange = (e) => setFormState((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSending(true);
-
-    // Simulate send (replace with real API call later)
     setTimeout(() => {
       setIsSending(false);
       setSent(true);
@@ -134,183 +128,62 @@ export default function Contact() {
           style={{
             opacity: headerInView ? 1 : 0,
             transform: headerInView ? "translateY(0)" : "translateY(24px)",
-            transition:
-              "opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)",
+            transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)",
           }}
         >
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-1.5 text-xs tracking-widest text-zinc-500 uppercase backdrop-blur-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-[#34d399]" />
-            Get in Touch
+            {c.label}
           </div>
 
           <h2 className="font-heading text-4xl font-bold tracking-tight text-[#f4f4f5] sm:text-5xl">
-            Let&apos;s{" "}
-            <span className="gradient-text">Connect</span>
+            {c.title}{" "}
+            <span className="gradient-text">{c.titleGradient}</span>
           </h2>
 
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-zinc-500">
-            Have a project in mind or want to collaborate? I&apos;d love to hear from you.
+            {c.subtitle}
           </p>
         </div>
 
         {/* ── Two Column Grid ────────────────────────────────── */}
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-2 lg:gap-16">
-          {/* ════════════════════════════════════════════════════
-              LEFT — Info & Links
-             ════════════════════════════════════════════════════ */}
-          <div
-            ref={leftRef}
-            className="flex flex-col gap-6"
-            style={{
-              opacity: leftInView ? 1 : 0,
-              transform: leftInView ? "translateY(0)" : "translateY(32px)",
-              transition:
-                "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s",
-            }}
-          >
-            {/* CTA Text */}
+          {/* LEFT — Info */}
+          <div ref={leftRef} className="flex flex-col gap-6" style={{ opacity: leftInView ? 1 : 0, transform: leftInView ? "translateY(0)" : "translateY(32px)", transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.1s" }}>
             <div className="rounded-3xl border border-zinc-800/60 bg-zinc-900/20 p-8 backdrop-blur-md">
               <SparkleIcon className="mb-4 h-8 w-8 text-[#a855f7]" />
-
-              <h3 className="mb-3 font-heading text-2xl font-bold text-[#f4f4f5]">
-                Let&apos;s work together!
-              </h3>
-
-              <p className="text-[15px] leading-relaxed text-zinc-400">
-                I&apos;m always open to discussing new projects, creative ideas,
-                or opportunities to be part of something meaningful. Whether you
-                need a full-stack web application, a redesign, or a technical
-                consultation — let&apos;s make it happen.
-              </p>
+              <h3 className="mb-3 font-heading text-2xl font-bold text-[#f4f4f5]">{c.ctaTitle}</h3>
+              <p className="text-[15px] leading-relaxed text-zinc-400">{c.ctaDesc}</p>
             </div>
 
-            {/* Contact Links */}
-            <ContactLink
-              href="mailto:rafael.abimanyu@email.com"
-              icon={<MailIcon className="h-5 w-5 text-[#06b6d4]" />}
-              label="Email"
-              value="rafael.abimanyu@email.com"
-            />
-
-            <ContactLink
-              href="https://github.com/rafaelabimanyu"
-              icon={<GitHubIcon className="h-5 w-5 text-[#f4f4f5]" />}
-              label="GitHub"
-              value="github.com/rafaelabimanyu"
-              external
-            />
-
-            <ContactLink
-              href="https://linkedin.com/in/rafaelabimanyu"
-              icon={<LinkedInIcon className="h-5 w-5 text-[#0A66C2]" />}
-              label="LinkedIn"
-              value="linkedin.com/in/rafaelabimanyu"
-              external
-            />
+            <ContactLink href="mailto:rafael.abimanyu@email.com" icon={<MailIcon className="h-5 w-5 text-[#06b6d4]" />} label="Email" value="rafael.abimanyu@email.com" />
+            <ContactLink href="https://github.com/rafaelabimanyu" icon={<GitHubIcon className="h-5 w-5 text-[#f4f4f5]" />} label="GitHub" value="github.com/rafaelabimanyu" external />
+            <ContactLink href="https://linkedin.com/in/rafaelabimanyu" icon={<LinkedInIcon className="h-5 w-5 text-[#0A66C2]" />} label="LinkedIn" value="linkedin.com/in/rafaelabimanyu" external />
           </div>
 
-          {/* ════════════════════════════════════════════════════
-              RIGHT — Contact Form
-             ════════════════════════════════════════════════════ */}
-          <div
-            ref={formRef}
-            style={{
-              opacity: formInView ? 1 : 0,
-              transform: formInView ? "translateY(0)" : "translateY(32px)",
-              transition:
-                "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s",
-            }}
-          >
-            <form
-              onSubmit={handleSubmit}
-              className="flex flex-col gap-5 rounded-3xl border border-zinc-800/60 bg-zinc-900/20 p-8 backdrop-blur-md"
-            >
-              {/* Name */}
+          {/* RIGHT — Form */}
+          <div ref={formRef} style={{ opacity: formInView ? 1 : 0, transform: formInView ? "translateY(0)" : "translateY(32px)", transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s, transform 0.7s cubic-bezier(0.16,1,0.3,1) 0.2s" }}>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-5 rounded-3xl border border-zinc-800/60 bg-zinc-900/20 p-8 backdrop-blur-md">
               <div>
-                <label
-                  htmlFor="contact-name"
-                  className="mb-2 block text-xs font-medium tracking-wider text-zinc-500 uppercase"
-                >
-                  Your Name
-                </label>
-                <input
-                  id="contact-name"
-                  name="name"
-                  type="text"
-                  required
-                  value={formState.name}
-                  onChange={handleChange}
-                  placeholder="John Doe"
-                  className="w-full rounded-2xl border border-zinc-800/80 bg-zinc-950/50 px-5 py-3.5 text-sm text-[#f4f4f5] placeholder-zinc-700 outline-none transition-all duration-300 focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7]/20"
-                />
+                <label htmlFor="contact-name" className="mb-2 block text-xs font-medium tracking-wider text-zinc-500 uppercase">{c.nameLabel}</label>
+                <input id="contact-name" name="name" type="text" required value={formState.name} onChange={handleChange} placeholder={c.namePlaceholder} className="w-full rounded-2xl border border-zinc-800/80 bg-zinc-950/50 px-5 py-3.5 text-sm text-[#f4f4f5] placeholder-zinc-700 outline-none transition-all duration-300 focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7]/20" />
+              </div>
+              <div>
+                <label htmlFor="contact-email" className="mb-2 block text-xs font-medium tracking-wider text-zinc-500 uppercase">{c.emailLabel}</label>
+                <input id="contact-email" name="email" type="email" required value={formState.email} onChange={handleChange} placeholder={c.emailPlaceholder} className="w-full rounded-2xl border border-zinc-800/80 bg-zinc-950/50 px-5 py-3.5 text-sm text-[#f4f4f5] placeholder-zinc-700 outline-none transition-all duration-300 focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7]/20" />
+              </div>
+              <div>
+                <label htmlFor="contact-message" className="mb-2 block text-xs font-medium tracking-wider text-zinc-500 uppercase">{c.messageLabel}</label>
+                <textarea id="contact-message" name="message" required rows={5} value={formState.message} onChange={handleChange} placeholder={c.messagePlaceholder} className="w-full resize-none rounded-2xl border border-zinc-800/80 bg-zinc-950/50 px-5 py-3.5 text-sm leading-relaxed text-[#f4f4f5] placeholder-zinc-700 outline-none transition-all duration-300 focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7]/20" />
               </div>
 
-              {/* Email */}
-              <div>
-                <label
-                  htmlFor="contact-email"
-                  className="mb-2 block text-xs font-medium tracking-wider text-zinc-500 uppercase"
-                >
-                  Email Address
-                </label>
-                <input
-                  id="contact-email"
-                  name="email"
-                  type="email"
-                  required
-                  value={formState.email}
-                  onChange={handleChange}
-                  placeholder="john@example.com"
-                  className="w-full rounded-2xl border border-zinc-800/80 bg-zinc-950/50 px-5 py-3.5 text-sm text-[#f4f4f5] placeholder-zinc-700 outline-none transition-all duration-300 focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7]/20"
-                />
-              </div>
-
-              {/* Message */}
-              <div>
-                <label
-                  htmlFor="contact-message"
-                  className="mb-2 block text-xs font-medium tracking-wider text-zinc-500 uppercase"
-                >
-                  Message
-                </label>
-                <textarea
-                  id="contact-message"
-                  name="message"
-                  required
-                  rows={5}
-                  value={formState.message}
-                  onChange={handleChange}
-                  placeholder="Tell me about your project..."
-                  className="w-full resize-none rounded-2xl border border-zinc-800/80 bg-zinc-950/50 px-5 py-3.5 text-sm leading-relaxed text-[#f4f4f5] placeholder-zinc-700 outline-none transition-all duration-300 focus:border-[#a855f7] focus:ring-1 focus:ring-[#a855f7]/20"
-                />
-              </div>
-
-              {/* Submit Button */}
-              <button
-                type="submit"
-                disabled={isSending}
-                className="btn-glow group mt-2 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#a855f7] to-[#06b6d4] px-8 py-4 text-sm font-semibold text-white shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
-              >
+              <button type="submit" disabled={isSending} className="btn-glow group mt-2 inline-flex w-full items-center justify-center gap-2.5 rounded-full bg-gradient-to-r from-[#a855f7] to-[#06b6d4] px-8 py-4 text-sm font-semibold text-white shadow-lg disabled:opacity-60 disabled:cursor-not-allowed">
                 {isSending ? (
-                  <>
-                    <svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                    </svg>
-                    Sending...
-                  </>
+                  <><svg className="h-4 w-4 animate-spin" viewBox="0 0 24 24" fill="none"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" /></svg>{c.sendingBtn}</>
                 ) : sent ? (
-                  <>
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                    </svg>
-                    Message Sent!
-                  </>
+                  <><svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>{c.sentBtn}</>
                 ) : (
-                  <>
-                    <SendIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                    Send Message
-                  </>
+                  <><SendIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />{c.sendBtn}</>
                 )}
               </button>
             </form>

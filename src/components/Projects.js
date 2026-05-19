@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 /* ── Intersection Observer Hook ────────────────────────────────── */
 function useInView(options = {}) {
@@ -28,14 +30,11 @@ function useInView(options = {}) {
   return [ref, isInView];
 }
 
-/* ── Project Data ──────────────────────────────────────────────── */
-const PROJECTS = [
+/* ── Static Project Data (non-translatable fields) ─────────────── */
+const PROJECTS_DATA = [
   {
     id: "e-aspirasi",
     title: "E-Aspirasi",
-    subtitle: "Public Aspiration Portal",
-    description:
-      "An interactive public portal for community complaints and aspirations, designed with a premium, high-fidelity UI/UX that prioritizes visual excellence and intuitive user experiences. Every element — from micro-animations to responsive layouts — is crafted to deliver a polished, modern feel that sets the standard for civic technology.",
     tags: [
       { label: "Clean & High-Fidelity UI", color: "#06b6d4" },
       { label: "Public Portal", color: "#a855f7" },
@@ -49,9 +48,6 @@ const PROJECTS = [
   {
     id: "library-maura",
     title: "Net-Library",
-    subtitle: "Library Maura — Circulation Management",
-    description:
-      "A complex, admin-scale library circulation management system built with modular architecture and strict security protocols. Engineered for multi-role environments, the system handles book inventories, member management, borrowing workflows, and fine calculations — all behind a secure authentication layer with granular access controls.",
     tags: [
       { label: "Role-Based Access Control", color: "#a855f7" },
       { label: "Multi-language (ID/EN)", color: "#06b6d4" },
@@ -64,26 +60,15 @@ const PROJECTS = [
   },
 ];
 
-/* ── Arrow Icon ────────────────────────────────────────────────── */
+/* ── Icons ─────────────────────────────────────────────────────── */
 function ArrowIcon({ className }) {
   return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M17 8l4 4m0 0l-4 4m4-4H3"
-      />
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
     </svg>
   );
 }
 
-/* ── GitHub Icon ───────────────────────────────────────────────── */
 function GitHubIcon({ className }) {
   return (
     <svg className={className} fill="currentColor" viewBox="0 0 24 24">
@@ -92,26 +77,15 @@ function GitHubIcon({ className }) {
   );
 }
 
-/* ── External Link Icon ────────────────────────────────────────── */
 function ExternalIcon({ className }) {
   return (
-    <svg
-      className={className}
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-      strokeWidth={2}
-    >
-      <path
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-      />
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
     </svg>
   );
 }
 
-/* ── Tech Badge ────────────────────────────────────────────────── */
+/* ── UI Primitives ─────────────────────────────────────────────── */
 function TechBadge({ children }) {
   return (
     <span className="inline-flex items-center rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-1 text-xs tracking-wide text-zinc-400">
@@ -120,169 +94,106 @@ function TechBadge({ children }) {
   );
 }
 
-/* ── Feature Tag ───────────────────────────────────────────────── */
 function FeatureTag({ label, color }) {
   return (
     <span
       className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium"
-      style={{
-        color,
-        backgroundColor: `${color}12`,
-        border: `1px solid ${color}25`,
-      }}
+      style={{ color, backgroundColor: `${color}12`, border: `1px solid ${color}25` }}
     >
-      <span
-        className="h-1.5 w-1.5 rounded-full"
-        style={{ backgroundColor: color }}
-      />
+      <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: color }} />
       {label}
     </span>
   );
 }
 
 /* ── Project Card ──────────────────────────────────────────────── */
-function ProjectCard({ project, index }) {
+function ProjectCard({ project, index, texts }) {
   const [ref, isInView] = useInView();
   const isEven = index % 2 === 0;
+
+  // Find localized text for this project
+  const localItem = (texts.items || []).find((i) => i.id === project.id) || {};
 
   return (
     <div
       ref={ref}
-      className={`group grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12 ${
-        !isEven ? "lg:direction-rtl" : ""
-      }`}
+      className={`group grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12`}
       style={{
         opacity: isInView ? 1 : 0,
         transform: isInView ? "translateY(0)" : "translateY(40px)",
-        transition: `opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s`,
+        transition: "opacity 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s, transform 0.8s cubic-bezier(0.16,1,0.3,1) 0.1s",
       }}
     >
-      {/* ── Image / Mockup Area ──────────────────────────────── */}
+      {/* Mockup Area */}
       <div className={`${!isEven ? "lg:order-2" : ""}`}>
         <div
           className="relative overflow-hidden rounded-2xl border border-zinc-800/60 bg-zinc-900/30 backdrop-blur-md transition-all duration-500 group-hover:border-zinc-700/60"
-          style={{
-            boxShadow: `0 0 0px ${project.accent}00`,
-            transition:
-              "box-shadow 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.3s",
-          }}
-          onMouseEnter={(e) => {
-            e.currentTarget.style.boxShadow = `0 0 40px ${project.accent}20, 0 0 80px ${project.accent}08`;
-          }}
-          onMouseLeave={(e) => {
-            e.currentTarget.style.boxShadow = `0 0 0px ${project.accent}00`;
-          }}
+          style={{ boxShadow: `0 0 0px ${project.accent}00`, transition: "box-shadow 0.5s cubic-bezier(0.16,1,0.3,1), border-color 0.3s" }}
+          onMouseEnter={(e) => { e.currentTarget.style.boxShadow = `0 0 40px ${project.accent}20, 0 0 80px ${project.accent}08`; }}
+          onMouseLeave={(e) => { e.currentTarget.style.boxShadow = `0 0 0px ${project.accent}00`; }}
         >
-          {/* Browser chrome mockup */}
           <div className="flex items-center gap-1.5 border-b border-zinc-800/60 bg-zinc-900/60 px-4 py-3">
             <span className="h-2.5 w-2.5 rounded-full bg-red-500/50" />
             <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/50" />
             <span className="h-2.5 w-2.5 rounded-full bg-green-500/50" />
-            <span className="ml-3 flex-1 rounded-md bg-zinc-800/60 px-3 py-1 text-[10px] text-zinc-600">
-              {project.id}.test
-            </span>
+            <span className="ml-3 flex-1 rounded-md bg-zinc-800/60 px-3 py-1 text-[10px] text-zinc-600">{project.id}.test</span>
           </div>
 
-          {/* Placeholder content area */}
           <div
             className="relative flex aspect-[16/10] items-center justify-center"
-            style={{
-              background: `linear-gradient(135deg, ${project.accentDim}, transparent 60%), linear-gradient(225deg, rgba(168,85,247,0.04), transparent 60%)`,
-            }}
+            style={{ background: `linear-gradient(135deg, ${project.accentDim}, transparent 60%), linear-gradient(225deg, rgba(168,85,247,0.04), transparent 60%)` }}
           >
-            {/* Grid pattern overlay */}
-            <div
-              className="absolute inset-0 opacity-[0.03]"
-              style={{
-                backgroundImage: `linear-gradient(${project.accent}40 1px, transparent 1px), linear-gradient(90deg, ${project.accent}40 1px, transparent 1px)`,
-                backgroundSize: "40px 40px",
-              }}
-            />
-
-            {/* Project name display */}
+            <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `linear-gradient(${project.accent}40 1px, transparent 1px), linear-gradient(90deg, ${project.accent}40 1px, transparent 1px)`, backgroundSize: "40px 40px" }} />
             <div className="relative text-center">
-              <p
-                className="font-heading text-3xl font-bold tracking-tight sm:text-4xl"
-                style={{ color: project.accent }}
-              >
-                {project.title}
-              </p>
-              <p className="mt-1 text-xs tracking-widest text-zinc-600 uppercase">
-                Preview Coming Soon
-              </p>
+              <p className="font-heading text-3xl font-bold tracking-tight sm:text-4xl" style={{ color: project.accent }}>{project.title}</p>
+              <p className="mt-1 text-xs tracking-widest text-zinc-600 uppercase">{texts.previewSoon}</p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* ── Text Content ─────────────────────────────────────── */}
+      {/* Text Content */}
       <div className={`${!isEven ? "lg:order-1 lg:text-right" : ""}`}>
-        {/* Subtitle label */}
-        <p
-          className="mb-2 text-xs font-semibold tracking-widest uppercase"
-          style={{ color: project.accent }}
-        >
-          {project.subtitle}
+        <p className="mb-2 text-xs font-semibold tracking-widest uppercase" style={{ color: project.accent }}>
+          {localItem.subtitle || project.title}
         </p>
 
-        {/* Title */}
         <h3 className="mb-4 font-heading text-3xl font-bold tracking-tight text-[#f4f4f5] sm:text-4xl">
           {project.title}
         </h3>
 
-        {/* Description */}
         <p className="mb-5 text-[15px] leading-relaxed text-zinc-400">
-          {project.description}
+          {localItem.description || ""}
         </p>
 
-        {/* Feature Tags */}
-        <div
-          className={`mb-5 flex flex-wrap gap-2 ${
-            !isEven ? "lg:justify-end" : ""
-          }`}
-        >
+        <div className={`mb-5 flex flex-wrap gap-2 ${!isEven ? "lg:justify-end" : ""}`}>
           {project.tags.map((tag) => (
             <FeatureTag key={tag.label} label={tag.label} color={tag.color} />
           ))}
         </div>
 
-        {/* Tech Stack */}
-        <div
-          className={`mb-6 flex flex-wrap gap-2 ${
-            !isEven ? "lg:justify-end" : ""
-          }`}
-        >
+        <div className={`mb-6 flex flex-wrap gap-2 ${!isEven ? "lg:justify-end" : ""}`}>
           {project.techStack.map((tech) => (
             <TechBadge key={tech}>{tech}</TechBadge>
           ))}
         </div>
 
-        {/* Action Buttons */}
-        <div
-          className={`flex items-center gap-3 ${
-            !isEven ? "lg:justify-end" : ""
-          }`}
-        >
+        <div className={`flex items-center gap-3 ${!isEven ? "lg:justify-end" : ""}`}>
           <a
             href={project.github}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-glow inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold text-white"
-            style={{
-              background: `linear-gradient(135deg, ${project.accent}, ${project.accent}bb)`,
-            }}
+            style={{ background: `linear-gradient(135deg, ${project.accent}, ${project.accent}bb)` }}
           >
             <GitHubIcon className="h-4 w-4" />
-            View on GitHub
+            {texts.viewOnGithub}
             <ArrowIcon className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
           </a>
 
-          <a
-            href="#"
-            className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-5 py-2.5 text-sm font-medium text-zinc-400 transition-all duration-300 hover:border-zinc-500 hover:bg-zinc-900/50 hover:text-zinc-200"
-          >
+          <a href="#" className="inline-flex items-center gap-2 rounded-full border border-zinc-700 px-5 py-2.5 text-sm font-medium text-zinc-400 transition-all duration-300 hover:border-zinc-500 hover:bg-zinc-900/50 hover:text-zinc-200">
             <ExternalIcon className="h-4 w-4" />
-            Live Demo
+            {texts.liveDemo}
           </a>
         </div>
       </div>
@@ -295,6 +206,8 @@ function ProjectCard({ project, index }) {
    ================================================================ */
 export default function Projects() {
   const [headerRef, headerInView] = useInView();
+  const { t } = useLanguage();
+  const texts = t("projects");
 
   return (
     <section id="projects" className="relative px-6 py-24 lg:px-16 lg:py-32">
@@ -306,34 +219,40 @@ export default function Projects() {
           style={{
             opacity: headerInView ? 1 : 0,
             transform: headerInView ? "translateY(0)" : "translateY(24px)",
-            transition:
-              "opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)",
+            transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)",
           }}
         >
-          {/* Label */}
           <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-1.5 text-xs tracking-widest text-zinc-500 uppercase backdrop-blur-sm">
             <span className="h-1.5 w-1.5 rounded-full bg-[#a855f7]" />
-            Featured Work
+            {texts.label}
           </div>
 
-          {/* Title */}
           <h2 className="font-heading text-4xl font-bold tracking-tight text-[#f4f4f5] sm:text-5xl">
-            Project{" "}
-            <span className="gradient-text">Showcase</span>
+            {texts.title}{" "}
+            <span className="gradient-text">{texts.titleGradient}</span>
           </h2>
 
-          {/* Subtitle */}
           <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-zinc-500">
-            A curated selection of projects that showcase my expertise in
-            building modern, full-stack web applications.
+            {texts.subtitle}
           </p>
         </div>
 
-        {/* ── Projects List ──────────────────────────────────── */}
+        {/* ── Featured Projects (2 only) ─────────────────────── */}
         <div className="space-y-24 lg:space-y-32">
-          {PROJECTS.map((project, index) => (
-            <ProjectCard key={project.id} project={project} index={index} />
+          {PROJECTS_DATA.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} texts={texts} />
           ))}
+        </div>
+
+        {/* ── View All CTA ────────────────────────────────────── */}
+        <div className="mt-20 flex justify-center">
+          <Link
+            href="/projects"
+            className="btn-glow group inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-[#a855f7] to-[#06b6d4] px-8 py-3.5 text-sm font-semibold text-white shadow-lg"
+          >
+            {texts.viewAll}
+            <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
         </div>
       </div>
     </section>

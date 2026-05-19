@@ -1,5 +1,8 @@
 "use client";
 
+import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
+
 /* ── Icons ─────────────────────────────────────────────────────── */
 function GitHubIcon({ className }) {
   return (
@@ -25,120 +28,88 @@ function MailIcon({ className }) {
   );
 }
 
-/* ── Nav Links ─────────────────────────────────────────────────── */
-const NAV_LINKS = [
-  { label: "Home", href: "#hero" },
-  { label: "About", href: "#about" },
-  { label: "Tech Stack", href: "#techstack" },
-  { label: "Projects", href: "#projects" },
-  { label: "Contact", href: "#contact" },
-];
-
 const SOCIAL_LINKS = [
-  {
-    label: "GitHub",
-    href: "https://github.com/rafaelabimanyu",
-    icon: <GitHubIcon className="h-4 w-4" />,
-  },
-  {
-    label: "LinkedIn",
-    href: "https://linkedin.com/in/rafaelabimanyu",
-    icon: <LinkedInIcon className="h-4 w-4" />,
-  },
-  {
-    label: "Email",
-    href: "mailto:rafael.abimanyu@email.com",
-    icon: <MailIcon className="h-4 w-4" />,
-  },
+  { label: "GitHub", href: "https://github.com/rafaelabimanyu", icon: <GitHubIcon className="h-4 w-4" /> },
+  { label: "LinkedIn", href: "https://linkedin.com/in/rafaelabimanyu", icon: <LinkedInIcon className="h-4 w-4" /> },
+  { label: "Email", href: "mailto:rafael.abimanyu@email.com", icon: <MailIcon className="h-4 w-4" /> },
 ];
 
 /* ================================================================
    FOOTER
    ================================================================ */
 export default function Footer() {
+  const { t } = useLanguage();
+  const f = t("footer");
+  const nav = t("navbar");
+
+  const NAV_LINKS = [
+    { label: nav.home, href: "/#hero" },
+    { label: nav.about, href: "/#about" },
+    { label: nav.techStack, href: "/#techstack" },
+    { label: nav.projects, href: "/#projects" },
+    { label: nav.contact, href: "/#contact" },
+  ];
+
   return (
     <footer className="relative border-t border-zinc-800/60 px-6 py-12 lg:px-16">
       <div className="mx-auto max-w-7xl">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-3 md:gap-8">
-          {/* ── Brand Column ─────────────────────────────────── */}
+          {/* Brand */}
           <div className="flex flex-col gap-4">
-            {/* Logo "R" */}
-            <a href="#hero" className="group inline-flex items-center gap-3">
+            <Link href="/" className="group inline-flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-800 bg-gradient-to-br from-[#a855f7]/10 to-[#06b6d4]/10 transition-all duration-300 group-hover:border-zinc-700 group-hover:shadow-[0_0_20px_rgba(168,85,247,0.15)]">
-                <span className="gradient-text font-heading text-lg font-bold">
-                  R
-                </span>
+                <span className="gradient-text font-heading text-lg font-bold">R</span>
               </div>
               <span className="font-heading text-lg font-semibold text-[#f4f4f5]">
                 Rafael<span className="text-zinc-500">.</span>
               </span>
-            </a>
-
-            <p className="max-w-xs text-sm leading-relaxed text-zinc-600">
-              Building robust, scalable, and modern web solutions with clean code and performance at the core.
-            </p>
+            </Link>
+            <p className="max-w-xs text-sm leading-relaxed text-zinc-600">{f.tagline}</p>
           </div>
 
-          {/* ── Navigation Column ────────────────────────────── */}
+          {/* Navigation */}
           <div>
-            <h4 className="mb-4 text-xs font-semibold tracking-widest text-zinc-500 uppercase">
-              Navigation
-            </h4>
+            <h4 className="mb-4 text-xs font-semibold tracking-widest text-zinc-500 uppercase">{f.navigation}</h4>
             <ul className="space-y-2.5">
               {NAV_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="text-sm text-zinc-500 transition-colors duration-200 hover:text-[#f4f4f5]"
-                  >
+                  <Link href={link.href} className="text-sm text-zinc-500 transition-colors duration-200 hover:text-[#f4f4f5]">
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* ── Social Column ────────────────────────────────── */}
+          {/* Social */}
           <div>
-            <h4 className="mb-4 text-xs font-semibold tracking-widest text-zinc-500 uppercase">
-              Connect
-            </h4>
+            <h4 className="mb-4 text-xs font-semibold tracking-widest text-zinc-500 uppercase">{f.connect}</h4>
             <div className="flex gap-3">
               {SOCIAL_LINKS.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={social.label}
-                  className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/40 text-zinc-500 transition-all duration-300 hover:border-zinc-700 hover:bg-zinc-900/60 hover:text-[#f4f4f5]"
-                >
+                <a key={social.label} href={social.href} target="_blank" rel="noopener noreferrer" aria-label={social.label} className="flex h-10 w-10 items-center justify-center rounded-xl border border-zinc-800 bg-zinc-900/40 text-zinc-500 transition-all duration-300 hover:border-zinc-700 hover:bg-zinc-900/60 hover:text-[#f4f4f5]">
                   {social.icon}
                 </a>
               ))}
             </div>
-
-            {/* Status */}
             <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/40 px-3 py-1.5 text-xs text-zinc-600">
               <span className="relative flex h-2 w-2">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#34d399] opacity-75" />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-[#34d399]" />
               </span>
-              Available for hire
+              {f.available}
             </div>
           </div>
         </div>
 
-        {/* ── Bottom Bar ─────────────────────────────────────── */}
+        {/* Bottom Bar */}
         <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-zinc-800/40 pt-8 sm:flex-row">
           <p className="text-xs text-zinc-600">
-            © {new Date().getFullYear()} Rafael Abimanyu. All rights reserved.
+            © {new Date().getFullYear()} {f.copyright}
           </p>
-
           <p className="flex items-center gap-1.5 text-xs text-zinc-700">
-            Crafted with
+            {f.craftedWith}
             <span className="inline-block animate-pulse text-[#ec4899]">♥</span>
-            using
+            {f.using}
             <span className="font-medium text-zinc-500">Next.js</span>
             &
             <span className="font-medium text-zinc-500">Tailwind CSS</span>

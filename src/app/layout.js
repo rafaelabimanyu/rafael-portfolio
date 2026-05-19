@@ -1,5 +1,7 @@
 import { Space_Grotesk, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { LanguageProvider } from "@/context/LanguageContext";
+import Navbar from "@/components/Navbar";
 
 /* ── Google Fonts ──────────────────────────────────────────────── */
 
@@ -49,13 +51,18 @@ export default function RootLayout({ children }) {
       className={`${spaceGrotesk.variable} ${plusJakarta.variable} h-full`}
     >
       <body className="relative min-h-screen overflow-x-hidden bg-[#050505] text-[#f4f4f5] antialiased">
-        {/* ── Ambient Light Glow Background ─────────────────── */}
-        <div className="ambient-glow" aria-hidden="true" />
+        <LanguageProvider>
+          {/* ── Ambient Light Glow Background ─────────────────── */}
+          <div className="ambient-glow" aria-hidden="true" />
 
-        {/* ── Main Content Shell ─────────────────────────────── */}
-        <div className="relative z-10 flex min-h-screen flex-col">
-          {children}
-        </div>
+          {/* ── Navbar ────────────────────────────────────────── */}
+          <Navbar />
+
+          {/* ── Main Content Shell ─────────────────────────────── */}
+          <div className="relative z-10 flex min-h-screen flex-col">
+            {children}
+          </div>
+        </LanguageProvider>
       </body>
     </html>
   );
