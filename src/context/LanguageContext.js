@@ -172,16 +172,16 @@ const DICT = {
       allProjectsLabel: "Complete Portfolio",
       items: [
         {
-          id: "e-aspirasi",
-          subtitle: "Public Aspiration Portal",
+          id: "rooterin-invoice",
+          subtitle: "SaaS Invoice & Billing Platform",
           description:
-            "An interactive public portal for community complaints and aspirations, designed with a premium, high-fidelity UI/UX that prioritizes visual excellence and intuitive user experiences. Every element — from micro-animations to responsive layouts — is crafted to deliver a polished, modern feel that sets the standard for civic technology.",
+            "A professional SaaS-based invoice and billing management web application designed for business efficiency, featuring real-time payment status tracking and optimized database architecture.",
         },
         {
-          id: "library-maura",
-          subtitle: "Library Maura — Circulation Management",
+          id: "politeknik-prestasi-prima",
+          subtitle: "Academic Management Portal",
           description:
-            "A complex, admin-scale library circulation management system built with modular architecture and strict security protocols. Engineered for multi-role environments, the system handles book inventories, member management, borrowing workflows, and fine calculations — all behind a secure authentication layer with granular access controls.",
+            "An interactive, responsive institutional information and academic management portal platform designed with a modular structure to securely separate data access privileges.",
         },
         {
           id: "bookspace",
@@ -227,16 +227,16 @@ const DICT = {
       allProjectsLabel: "Portofolio Lengkap",
       items: [
         {
-          id: "e-aspirasi",
-          subtitle: "Portal Aspirasi Publik",
+          id: "rooterin-invoice",
+          subtitle: "Platform Invoice & Penagihan SaaS",
           description:
-            "Portal publik interaktif untuk pengaduan dan aspirasi masyarakat, dirancang dengan UI/UX premium dan fidelitas tinggi yang mengutamakan keunggulan visual dan pengalaman pengguna yang intuitif. Setiap elemen — dari animasi mikro hingga tata letak responsif — dirancang untuk memberikan nuansa modern dan profesional.",
+            "Aplikasi web manajemen invoice dan penagihan profesional berbasis SaaS yang dirancang untuk efisiensi bisnis, dilengkapi pelacakan status pembayaran yang real-time dan arsitektur database yang optimal.",
         },
         {
-          id: "library-maura",
-          subtitle: "Library Maura — Manajemen Sirkulasi",
+          id: "politeknik-prestasi-prima",
+          subtitle: "Portal Manajemen Akademik",
           description:
-            "Sistem manajemen sirkulasi perpustakaan kompleks berskala admin yang dibangun dengan arsitektur modular dan protokol keamanan ketat. Dirancang untuk lingkungan multi-peran, sistem ini menangani inventaris buku, manajemen anggota, alur peminjaman, dan perhitungan denda — semuanya di balik lapisan autentikasi aman dengan kontrol akses granular.",
+            "Platform portal informasi dan manajemen akademik institusi yang interaktif, responsif, dan dirancang dengan struktur modular untuk memisahkan hak akses data secara aman.",
         },
         {
           id: "bookspace",

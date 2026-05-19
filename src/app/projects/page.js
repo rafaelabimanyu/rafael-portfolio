@@ -7,17 +7,17 @@ import Footer from "@/components/Footer";
 /* ── All Projects Data (static, language-independent fields) ───── */
 const ALL_PROJECTS = [
   {
-    id: "e-aspirasi",
-    title: "E-Aspirasi",
-    tags: ["Laravel", "PHP", "Tailwind CSS", "MySQL"],
+    id: "rooterin-invoice",
+    title: "Rooterin Invoice",
+    tags: ["Laravel", "PHP", "MySQL", "Tailwind CSS"],
     accent: "#06b6d4",
     accentDim: "rgba(6, 182, 212, 0.08)",
     github: "#",
   },
   {
-    id: "library-maura",
-    title: "Net-Library",
-    tags: ["Laravel", "PHP", "Blade", "JavaScript", "MySQL"],
+    id: "politeknik-prestasi-prima",
+    title: "Politeknik Prestasi Prima",
+    tags: ["Laravel", "PHP", "MySQL", "Blade Templates", "JavaScript"],
     accent: "#a855f7",
     accentDim: "rgba(168, 85, 247, 0.08)",
     github: "#",
