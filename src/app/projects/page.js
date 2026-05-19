@@ -123,7 +123,7 @@ function ProjectGridCard({ project, localItem, texts }) {
       </div>
 
       {/* Content */}
-      <div className="flex flex-1 flex-col p-5 sm:p-6">
+      <div className="flex flex-1 flex-col p-4 sm:p-5 md:p-6">
         {/* Subtitle */}
         <p
           className="mb-1 text-[10px] font-semibold tracking-widest uppercase"
@@ -133,17 +133,17 @@ function ProjectGridCard({ project, localItem, texts }) {
         </p>
 
         {/* Title */}
-        <h3 className="mb-2 font-heading text-lg font-bold text-[#f4f4f5]">
+        <h3 className="mb-2 font-heading text-base font-bold text-[#f4f4f5] sm:text-lg">
           {project.title}
         </h3>
 
         {/* Description */}
-        <p className="mb-4 flex-1 text-sm leading-relaxed text-zinc-500">
+        <p className="mb-3 flex-1 text-xs leading-relaxed text-zinc-500 sm:mb-4 sm:text-sm">
           {localItem?.description || ""}
         </p>
 
         {/* Tags */}
-        <div className="mb-4 flex flex-wrap gap-1.5">
+        <div className="mb-3 flex flex-wrap gap-1 sm:mb-4 sm:gap-1.5">
           {project.tags.map((tag) => (
             <span
               key={tag}
@@ -159,7 +159,7 @@ function ProjectGridCard({ project, localItem, texts }) {
           href={project.github}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-glow inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white"
+          className="btn-glow inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full px-4 py-2.5 text-xs font-semibold text-white sm:px-5 sm:text-sm"
           style={{
             background: `linear-gradient(135deg, ${project.accent}, ${project.accent}bb)`,
           }}
@@ -183,38 +183,38 @@ export default function ProjectsPage() {
 
   return (
     <main className="flex flex-1 flex-col">
-      <section className="relative px-6 pt-28 pb-24 lg:px-16 lg:pt-36 lg:pb-32">
+      <section className="relative px-4 pt-24 pb-16 sm:px-6 sm:pt-28 sm:pb-24 lg:px-16 lg:pt-36 lg:pb-32">
         <div className="mx-auto max-w-7xl">
           {/* ── Back Button ──────────────────────────────────── */}
           <Link
             href="/"
-            className="mb-10 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-5 py-2 text-sm text-zinc-400 backdrop-blur-sm transition-all duration-300 hover:border-zinc-700 hover:text-[#f4f4f5]"
+            className="mb-8 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-2 text-xs text-zinc-400 backdrop-blur-sm transition-all duration-300 hover:border-zinc-700 hover:text-[#f4f4f5] sm:mb-10 sm:px-5 sm:text-sm"
           >
             <ArrowLeftIcon className="h-4 w-4" />
             {texts.backToHome}
           </Link>
 
           {/* ── Page Header ──────────────────────────────────── */}
-          <div className="mb-16">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-1.5 text-xs tracking-widest text-zinc-500 uppercase backdrop-blur-sm">
+          <div className="mb-10 sm:mb-16">
+            <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-1 text-[10px] tracking-widest text-zinc-500 uppercase backdrop-blur-sm sm:mb-4 sm:px-4 sm:py-1.5 sm:text-xs">
               <span className="h-1.5 w-1.5 rounded-full bg-[#a855f7]" />
               {texts.allProjectsLabel}
             </div>
 
-            <h1 className="font-heading text-4xl font-bold tracking-tight text-[#f4f4f5] sm:text-5xl lg:text-6xl">
+            <h1 className="font-heading text-3xl font-bold tracking-tight text-[#f4f4f5] sm:text-4xl md:text-5xl lg:text-6xl">
               {texts.allProjectsTitle}{" "}
               <span className="gradient-text">
                 {texts.allProjectsTitleGradient}
               </span>
             </h1>
 
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg">
+            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-zinc-500 sm:mt-4 sm:text-base md:text-lg">
               {texts.allProjectsSubtitle}
             </p>
           </div>
 
           {/* ── Projects Grid ────────────────────────────────── */}
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
             {ALL_PROJECTS.map((project) => {
               const localItem = items.find((i) => i.id === project.id);
               return (

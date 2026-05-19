@@ -78,7 +78,7 @@ function ProgressBar({ level, color, animate }) {
 function TechCard({ tech, color, delay, animate }) {
   return (
     <div
-      className="group rounded-2xl border border-zinc-800/60 bg-zinc-900/20 p-4 backdrop-blur-md transition-all duration-300 hover:border-zinc-700/80 hover:bg-zinc-900/30 sm:p-5"
+      className="group rounded-xl border border-zinc-800/60 bg-zinc-900/20 p-3.5 backdrop-blur-md transition-all duration-300 hover:border-zinc-700/80 hover:bg-zinc-900/30 sm:rounded-2xl sm:p-5"
       style={{
         opacity: animate ? 1 : 0,
         transform: animate ? "translateY(0)" : "translateY(24px)",
@@ -152,33 +152,33 @@ export default function TechStack() {
   const ts = t("techStack");
 
   return (
-    <section id="techstack" className="relative px-6 py-24 lg:px-16 lg:py-32">
+    <section id="techstack" className="relative px-4 py-16 sm:px-6 sm:py-24 lg:px-16 lg:py-32">
       <div className="mx-auto max-w-7xl">
         <div
           ref={sectionRef}
-          className="mb-16 text-center"
+          className="mb-10 text-center sm:mb-16"
           style={{
             opacity: sectionInView ? 1 : 0,
             transform: sectionInView ? "translateY(0)" : "translateY(24px)",
             transition: "opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1)",
           }}
         >
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-4 py-1.5 text-xs tracking-widest text-zinc-500 uppercase backdrop-blur-sm">
+          <div className="mb-3 inline-flex items-center gap-2 rounded-full border border-zinc-800 bg-zinc-900/60 px-3 py-1 text-[10px] tracking-widest text-zinc-500 uppercase backdrop-blur-sm sm:mb-4 sm:px-4 sm:py-1.5 sm:text-xs">
             <span className="h-1.5 w-1.5 rounded-full bg-[#06b6d4]" />
             {ts.label}
           </div>
 
-          <h2 className="font-heading text-4xl font-bold tracking-tight text-[#f4f4f5] sm:text-5xl">
+          <h2 className="font-heading text-3xl font-bold tracking-tight text-[#f4f4f5] sm:text-4xl md:text-5xl">
             {ts.title}{" "}
             <span className="gradient-text">{ts.titleGradient}</span>
           </h2>
 
-          <p className="mx-auto mt-4 max-w-xl text-base leading-relaxed text-zinc-500">
+          <p className="mx-auto mt-3 max-w-xl text-sm leading-relaxed text-zinc-500 sm:mt-4 sm:text-base">
             {ts.subtitle}
           </p>
         </div>
 
-        <div className="space-y-12">
+        <div className="space-y-8 sm:space-y-12">
           {CATEGORIES.map((category) => (
             <CategoryRow key={category.titleKey} category={category} />
           ))}
