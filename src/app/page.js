@@ -2,6 +2,8 @@ import Hero from "@/components/Hero";
 import AboutBento from "@/components/AboutBento";
 import TechStack from "@/components/TechStack";
 import Projects from "@/components/Projects";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   return (
@@ -17,6 +19,12 @@ export default function Home() {
 
       {/* ── Project Showcase ─────────────────────────────────── */}
       <Projects />
+
+      {/* ── Contact ──────────────────────────────────────────── */}
+      <Contact />
+
+      {/* ── Footer ───────────────────────────────────────────── */}
+      <Footer />
     </main>
   );
 }
